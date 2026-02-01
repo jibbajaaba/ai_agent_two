@@ -4,6 +4,8 @@ import argparse
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
+from system_prompt import system_prompt
+from functions.get_files_info import available_functions
 
 
 def main():
@@ -21,10 +23,16 @@ def main():
     messages = [types.Content(role="user", parts=[types.Part(text=args.user_prompt)])]
     generate_content(client, messages, args)
 
+
 def generate_content(client, messages, args):
     response = client.models.generate_content(
         model='gemini-2.5-flash',
-        contents=messages
+        contents=messages,
+        config=types.GenerateContentConfig(
+            tools=[available_functions],
+            system_instruction=system_prompt,
+            temperature=0
+            )
     )
 
     if not response.usage_metadata:
@@ -37,8 +45,13 @@ def generate_content(client, messages, args):
         print("User prompt:", args.user_prompt)
         print("Prompt tokens:", prompt_tokens)
         print("Response tokens:", candidates_tokens)
-    print("Response:")
-    print(response.text)
+    if response.function_calls is not None:
+        for function_call in response.function_calls:
+            print(f"Calling function: {function_call.name}({function_call.args})")
+    else:
+        print("Response:")
+        print(response.text)
+
 
 if __name__ == "__main__":
     main()
