@@ -32,7 +32,7 @@ schema_get_files_info = types.FunctionDeclaration(
         properties={
             "directory": types.Schema(
                 type=types.Type.STRING,
-                description="Directory path to tlist files from, relative to the working directory (default is the working directory itself)",
+                description="Directory path to list files from, relative to the working directory (default is the working directory itself)",
             )
         }
     )

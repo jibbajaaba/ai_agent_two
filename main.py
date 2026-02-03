@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 from system_prompt import system_prompt
-from functions.get_files_info import available_functions
+from functions.call_functions import available_functions
 
 
 def main():
@@ -45,7 +45,7 @@ def generate_content(client, messages, args):
         print("User prompt:", args.user_prompt)
         print("Prompt tokens:", prompt_tokens)
         print("Response tokens:", candidates_tokens)
-    if response.function_calls is not None:
+    if response.function_calls:
         for function_call in response.function_calls:
             print(f"Calling function: {function_call.name}({function_call.args})")
     else:
