@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 from system_prompt import system_prompt
-from functions.call_functions import available_functions
+from functions.call_functions import available_functions, call_function
 
 
 def main():
@@ -46,8 +46,20 @@ def generate_content(client, messages, args):
         print("Prompt tokens:", prompt_tokens)
         print("Response tokens:", candidates_tokens)
     if response.function_calls:
+        function_result_list = []
         for function_call in response.function_calls:
-            print(f"Calling function: {function_call.name}({function_call.args})")
+            function_call_result = call_function(function_call, args.verbose)
+            if function_call_result.parts == []:
+                raise Exception("parts should not be an empty list")
+            if function_call_result.parts[0].function_response is None:
+                raise Exception("function response in parts should not be None")
+            if function_call_result.parts[0].function_response.response is None:
+                raise Exception("response in function response should not be None.")
+            if args.verbose:
+                print(
+                    f"-> {function_call_result.parts[0].function_response.response}"
+                )
+            function_result_list.append(function_call_result.parts[0])
     else:
         print("Response:")
         print(response.text)

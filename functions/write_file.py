@@ -21,7 +21,7 @@ def write_file(working_directory, file_path, content):
 
 
 schema_write_file = types.FunctionDeclaration(
-    name="write_files",
+    name="write_file",
     description="Write or overwrite files in a specified directory relative to the working directory, providing file size and directory status",
     parameters=types.Schema(
         type=types.Type.OBJECT,
@@ -29,6 +29,10 @@ schema_write_file = types.FunctionDeclaration(
             "file_path": types.Schema(
                 type=types.Type.STRING,
                 description="File path to write files from, relative to the working directory (default is the working directory itself)",
+            ),
+            "content": types.Schema(
+                type=types.Type.STRING,
+                description="Content to be written to the file."
             )
         }
     )
