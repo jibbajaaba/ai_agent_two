@@ -4,6 +4,7 @@ import subprocess
 from google.genai import types
 
 
+# used to run a python file
 def run_python_file(working_directory, file_path, args=None):
     try:
         working_dir_abs = os.path.abspath(working_directory)
@@ -32,7 +33,7 @@ def run_python_file(working_directory, file_path, args=None):
     except Exception as e:
         return f"Error executing command: {e}"
 
-
+# schema to identify what this function is for ai agent.
 schema_run_python_file = types.FunctionDeclaration(
     name="run_python_file",
     description="Run a python file in a specified directory relative to the working directory and returns the output from the interpreter",

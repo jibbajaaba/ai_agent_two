@@ -3,6 +3,7 @@ import os
 from google.genai import types
 
 
+# used to get the info on a file, it's type and size and if its a file or folder
 def get_files_info(working_directory, directory="."):
     try:
         working_dir_abs = os.path.abspath(working_directory)
@@ -24,6 +25,7 @@ def get_files_info(working_directory, directory="."):
         return f"Error: listing files: {e}"
 
 
+# schema to identify what this function is for ai agent.
 schema_get_files_info = types.FunctionDeclaration(
     name="get_files_info",
     description="Lists files in a specified directory relative to the working directory, providing file size and directory status",

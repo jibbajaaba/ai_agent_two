@@ -3,6 +3,7 @@ import os
 from google.genai import types
 
 
+# used to write in a file
 def write_file(working_directory, file_path, content):
     try:
         working_dir_abs = os.path.abspath(working_directory)
@@ -20,6 +21,7 @@ def write_file(working_directory, file_path, content):
         return f"Error writing file {file_path}: {e}"
 
 
+# schema to identify what this function is for ai agent.
 schema_write_file = types.FunctionDeclaration(
     name="write_file",
     description="Write or overwrite files in a specified directory relative to the working directory, providing file size and directory status",

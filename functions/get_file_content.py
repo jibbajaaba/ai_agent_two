@@ -3,6 +3,7 @@ import os
 from google.genai import types
 
 
+# used to get the content of a file.
 def get_file_content(working_directory, file_path):
     try:
         working_dir_abs = os.path.abspath(working_directory)
@@ -22,6 +23,7 @@ def get_file_content(working_directory, file_path):
         return f"Error reading file {file_path}: {e}"
 
 
+# schema to identify what this function is for ai agent.
 schema_get_file_content = types.FunctionDeclaration(
     name="get_file_content",
     description="Read the content of a file in the working directory and return the content of the file",
