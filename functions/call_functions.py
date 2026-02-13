@@ -4,7 +4,7 @@ from .get_file_content import schema_get_file_content, get_file_content
 from .run_python_file import schema_run_python_file, run_python_file
 from .write_file import schema_write_file, write_file
 
-# available schemes of functions
+# available Tool object of available functions
 available_functions = types.Tool(
     function_declarations=[
         schema_get_files_info,
@@ -18,6 +18,7 @@ available_functions = types.Tool(
 # ai agent uses to call on available functions
 def call_function(function_call, verbose=False):
 
+    # verbose prints detailed debugging info and always prints function called
     if verbose:
         print(f"Calling function: {function_call.name}({function_call.args})")
     print(f" - Calling function: {function_call.name}")
@@ -29,8 +30,10 @@ def call_function(function_call, verbose=False):
         "write_file": write_file
     }
 
+    # extract function name from request or default to empty string if None
     function_name = function_call.name or ""
 
+    # error response if requested function not in map
     if function_name not in function_map:
         return types.Content(
             role="tool",

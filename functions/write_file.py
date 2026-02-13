@@ -40,6 +40,7 @@ schema_write_file = types.FunctionDeclaration(
     )
 )
 
+# sets up available functions to be used by ai agent
 available_functions = types.Tool(
     function_declarations=[schema_write_file]
 )

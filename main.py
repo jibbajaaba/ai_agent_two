@@ -49,7 +49,7 @@ def main():
         print(response.text)
         return
 
-    print("Agent failed to produce a final reponse")
+    print("Agent failed to produce a final response")
     sys.exit(1)
 
 

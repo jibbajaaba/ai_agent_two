@@ -39,6 +39,7 @@ schema_get_file_content = types.FunctionDeclaration(
     )
 )
 
+# sets up available functions to be used by ai agent
 available_functions = types.Tool(
     function_declarations=[schema_get_file_content]
 )
